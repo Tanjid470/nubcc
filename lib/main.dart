@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'UserInfo/view/user_info_screen.dart';
+import 'api.dart';
 
 void main() {
+  UserSheetApi.inti();
   runApp(const MyApp());
 }
 
