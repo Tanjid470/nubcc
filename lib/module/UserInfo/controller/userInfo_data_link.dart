@@ -2,10 +2,14 @@
 import 'dart:developer';
 
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
+import 'package:get/get.dart';
 import 'package:gsheets/gsheets.dart';
-import 'package:nubcc/UserInfo/model/user_info_model.dart';
+import 'package:nubcc/google_sheet_init.dart';
+import 'package:nubcc/main.dart';
+import 'package:nubcc/module/UserInfo/model/user_info_model.dart';
+import 'package:nubcc/module/home/view/home_screen.dart';
 
-import '../../google_sheet_init.dart';
+
 
 
 class UserInfoDataLink{
@@ -32,6 +36,8 @@ class UserInfoDataLink{
     }
     _userInfoSheet!.values.map.appendRows(rowList);
     SmartDialog.dismiss();
+    preferences.setInt('initScreen',1);
+    Get.offAll(const HomeScreen());
     return true;
   }
 

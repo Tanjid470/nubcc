@@ -3,9 +3,9 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
-import 'package:nubcc/UserInfo/controller/userInfo_data_link.dart';
-import 'package:nubcc/UserInfo/controller/user_info_controller.dart';
-import 'package:nubcc/UserInfo/model/user_info_model.dart';
+import 'package:nubcc/module/UserInfo/controller/userInfo_data_link.dart';
+import 'package:nubcc/module/UserInfo/controller/user_info_controller.dart';
+import 'package:nubcc/module/UserInfo/model/user_info_model.dart';
 
 
 class UserInfoScreen extends StatefulWidget {
