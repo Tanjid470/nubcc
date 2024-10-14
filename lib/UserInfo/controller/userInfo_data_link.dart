@@ -10,16 +10,19 @@ import '../../google_sheet_init.dart';
 
 class UserInfoDataLink{
 
+
   static Worksheet? _userInfoSheet;
 
   static Future inti() async{
     try{
-      _userInfoSheet = await _getWorkSheet(GoogleSheetInit().spreadSheet,sheetName:'UserInfo');
+      final spreadSheet = await GoogleSheetInit().inti();
+      _userInfoSheet = await _getWorkSheet(spreadSheet,sheetName:'UserInfo');
       final firstRow = UserInfoModel.getUserInfo();
       _userInfoSheet!.values.insertRow(1, firstRow);
+      log("Init UserInfoDataLink ");
     }
     catch(exception){
-      log("Init error : $exception");
+      log("Init error UserInfoDataLink: $exception");
     }
   }
 
