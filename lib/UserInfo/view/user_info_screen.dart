@@ -88,14 +88,13 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
             inputHeader(context,'Name'),
             Container(
               alignment: Alignment.center,
-              margin: const EdgeInsets.only(top: 10),
               padding: const EdgeInsets.symmetric(vertical: 5),
               decoration:  BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(10),
                   border: Border.all(color: userInfoController.nameController.text.isEmpty
-                      ? const Color(0xffFFC056)
-                      : const Color(0xff009C56),
+                      ? Colors.grey.shade500
+                      : const Color(0xff0346ae),
                   )
               ),
               child: TextField(
@@ -140,17 +139,17 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
                       fontWeight: FontWeight.w400)),
             )
                 : const SizedBox.shrink(),),
+
             inputHeader(context,'Email'),
             Container(
               alignment: Alignment.center,
-              margin: const EdgeInsets.only(top: 10),
               padding: const EdgeInsets.symmetric(vertical: 5),
               decoration:  BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(10),
                   border: Border.all(color: userInfoController.emailController.text.isEmpty
-                      ? const Color(0xffFFC056)
-                      : const Color(0xff009C56),
+                      ? Colors.grey.shade500
+                      : const Color(0xff0346ae),
                   )
               ),
               child: TextField(
@@ -193,15 +192,90 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
                       fontWeight: FontWeight.w400)),
             )
                 : const SizedBox.shrink(),),
+
+            inputHeader(context,'Number'),
+            Container(
+              alignment: Alignment.center,
+              decoration:  BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: userInfoController.phoneController.text.isEmpty
+                      ? Colors.grey.shade500
+                      : const Color(0xff0346ae),
+                  )
+              ),
+              child: Row(
+                children: [
+                  const Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        '  +88',
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontFamily: 'HindSiliguri',
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                  const Text(' | ',
+                      style: TextStyle(
+                          color: Color(0xff0346ae),
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold)),
+                  Expanded(
+                    child: TextField(
+                      controller: userInfoController.phoneController,
+                      textInputAction: TextInputAction.done,
+                      style: TextStyle(
+                          fontSize: textSize,
+                          fontWeight: FontWeight.bold),
+                      keyboardType: TextInputType.phone,
+                      maxLength: 11,
+                      decoration: InputDecoration(
+                          counterText: "",
+                          border: const OutlineInputBorder(
+                              borderSide: BorderSide.none),
+                          hintText: "01XXX - XXXXXX",
+                          hintStyle: TextStyle(
+                              color: Colors.grey.shade400,
+                              fontFamily: 'HindSiliguri',
+                              fontSize: 16)),
+                      onChanged: (value) {
+                        userInfoController.phoneController.text = value;
+                        userInfoController.saveButtonEnable();
+                        setState(() {});
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Obx(() => userInfoController.phoneNumberErrorMassage.value.isNotEmpty
+                ? Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 3),
+                  child: Text(
+                      userInfoController.phoneNumberErrorMassage.value,
+                      style:  TextStyle(
+                          color: Colors.red,
+                          fontSize: textSize,
+                          fontWeight: FontWeight.w400)),
+                )
+                : const SizedBox.shrink(),),
+
+
             inputHeader(context,'Semester'),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 3),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: userInfoController.selectedValueCategory == null
-                    ? const Color(0xffFFC056)
-                    : const Color(0xff009C56),
+                border: Border.all(color: userInfoController.semesterID == null
+                    ? Colors.grey.shade500
+                    : const Color(0xff0346ae),
                 ),
               ),
               child: DropdownButton<int>(
@@ -213,33 +287,75 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
                   underline: const SizedBox(),
                   hint:  Text('Select Category',style: TextStyle(color: Colors.grey.shade500),),
                   isExpanded: true,
-                  value: userInfoController.selectedValueCategory,
+                  value: userInfoController.semesterID,
                   icon:  Icon(Icons.keyboard_arrow_down,
                       size: textSize*2,
-                      color: userInfoController.selectedValueCategory == null
-                          ? const Color(0xffFFC056)
-                          : const Color(0xff009C56)),
+                      color: userInfoController.semesterID == null
+                          ? Colors.grey.shade500
+                          : const Color(0xff0346ae),
+                  ),
                   onChanged: (int? newValue) async {
-
-                    userInfoController.selectedValueCategory = newValue;
-                    userInfoController.selectedValueDepartment = null;
-                    userInfoController.selectedValueSemester = null;
+                    userInfoController.semesterID = newValue;
                     userInfoController.saveButtonEnable();
                     setState(() {});
                   },
                   items: semesterItems(),
                 )
             ),
-            inputHeader(context,'Department'),
+
+            inputHeader(context,'Student ID'),
+            Container(
+              alignment: Alignment.center,
+              padding: const EdgeInsets.symmetric(vertical: 5),
+              decoration:  BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: userInfoController.studentIdController.text.isEmpty
+                      ? Colors.grey.shade500
+                      : const Color(0xff0346ae),
+                  )
+              ),
+              child: TextField(
+                controller: userInfoController.studentIdController,
+                textInputAction: TextInputAction.next,
+                style: const TextStyle(
+                    fontSize: 16,
+                    fontFamily: 'HindSiliguri',
+                    // color: HexColor('#7A7A7A'),
+                    fontWeight: FontWeight.bold),
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  contentPadding:
+                  const EdgeInsets.symmetric(horizontal: 8, vertical: 0),
+                  border: const OutlineInputBorder(borderSide: BorderSide.none),
+                  hintText: "Enter your name",
+                  prefixIcon: Icon(
+                    Icons.person,
+                    color: Colors.grey.shade400,
+                  ),
+                  hintStyle: TextStyle(
+                      fontFamily: 'HindSiliguri',
+                      color: Colors.grey.shade400,
+                      fontSize: 16),
+                  //hintStyle: const TextStyle(color: Colors.orangeAccent),
+                ),
+                onChanged: (value) {
+                  userInfoController.saveButtonEnable();
+                  setState(() {});
+                },
+              ),
+            ),
+
+            inputHeader(context,'Blood Group'),
             Container(
                       padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 3),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(8),
                         border: Border.all(
-                          color: userInfoController.selectedValueDepartment == null
-                            ? const Color(0xffFFC056)
-                            : const Color(0xff009C56),
+                          color: userInfoController.bloodGroup == null
+                              ? Colors.grey.shade500
+                              : const Color(0xff0346ae),
                         ),
                       ),
                       child: DropdownButton<int>(
@@ -251,58 +367,21 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
                         underline: const SizedBox(),
                         hint: Text('Select Department',style: TextStyle(color: Colors.grey.shade500)),
                         isExpanded: true,
-                        value: userInfoController.selectedValueDepartment,
+                        value: userInfoController.bloodGroup,
                         icon:  Icon(Icons.keyboard_arrow_down,
                           size: textSize*2,
-                          color: userInfoController.selectedValueDepartment == null
-                              ? const Color(0xffFFC056)
-                              : const Color(0xff009C56),
+                          color: userInfoController.bloodGroup == null
+                              ? Colors.grey.shade500
+                              : const Color(0xff0346ae),
                         ),
                         onChanged: (int? newValue) {
-                          userInfoController.selectedValueDepartment = newValue;
-                          userInfoController.selectedValueSemester = null;
+                          userInfoController.bloodGroup = newValue;
                           userInfoController.saveButtonEnable();
                           setState(() {});
                         },
                         items: semesterItems(),
                       )
                   ),
-
-            inputHeader(context,'Semester/Course'),
-            Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 3),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all( color:  userInfoController.selectedValueSemester == null
-                      ? const Color(0xffFFC056)
-                      : const Color(0xff009C56),
-                  ),
-                ),
-                child:DropdownButton<int>(
-                  dropdownColor: Colors.grey.shade100,
-                  borderRadius: const BorderRadius.all(Radius.circular(8)),
-                  autofocus: true,
-                  alignment: Alignment.centerLeft,
-                  padding: const EdgeInsets.symmetric(horizontal: 5),
-                  underline: const SizedBox(),
-                  hint:  Text('Select Course',style: TextStyle(color: Colors.grey.shade500),),
-                  isExpanded: true,
-                  value: userInfoController.selectedValueSemester,
-                  icon:  Icon(Icons.keyboard_arrow_down,
-                    size: textSize*2,
-                    color:userInfoController.selectedValueSemester == null
-                        ? const Color(0xffFFC056)
-                        : const Color(0xff009C56),
-                  ),
-                  onChanged: (int? newValue) {
-                    userInfoController.selectedValueSemester = newValue;
-                    userInfoController.saveButtonEnable();
-                    setState(() {});
-                  },
-                  items: semesterItems(),
-                )
-            ),
 
           ],
         ),
@@ -314,9 +393,10 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
     return userInfoController.saveButtonEnableFlag.value
         ? InkWell(
         onTap: () {
-          userInfoController.userNameInputValidation();
           userInfoController.userEmailInputValidation();
-          if(userInfoController.inputValidUserName.value && userInfoController.inputValidUserEmail.value){
+          userInfoController.numberInputValidation();
+          if(userInfoController.inputValidNumber.value && userInfoController.inputValidUserEmail.value){
+
           }
         },
         child: Container(
@@ -324,17 +404,25 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
               padding: const EdgeInsets.symmetric(vertical: 10),
               margin: const EdgeInsets.symmetric(horizontal: 10),
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8.0),
+                  borderRadius: BorderRadius.circular(10),
                   gradient: const LinearGradient(colors: [
-                    Color(0xffF5244F),
-                    Color(0xffFAA64B),
-                  ])),
-              child: Text(
+                    Color(0xff0346ae),
+                    Color(0xff012351),
+                  ]),
+                  boxShadow:const [
+                    BoxShadow(
+                      color: Colors.black, // Shadow color
+                      spreadRadius: 1,
+                      offset: Offset(1, 2),
+                    )
+                  ]
+              ),
+              child: const Text(
                 'Save',
                 style: TextStyle(
                     color: Colors.white,
                     fontFamily: 'HindSiliguri',
-                    fontSize: textSize),
+                    fontSize: 16),
                 textAlign: TextAlign.center,
               ),
             ),
