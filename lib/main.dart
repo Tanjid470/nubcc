@@ -27,20 +27,22 @@ class MyApp extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
             decoration: BoxDecoration(borderRadius: BorderRadius.circular(25),
-                color: Colors.red),
+                color: Colors.red
+            ),
             child: Text(msg,
               style:  const TextStyle(
                 color: Colors.white,
-                fontSize: 18,
+                fontSize: 100,
               ),
             ),
           ),
         ),
         loadingBuilder: (String msg) => LoadingAnimationWidget.hexagonDots(
             color: Colors.green,
-            size:  20
+            size: 50
         ),
       ),
+      navigatorObservers: [FlutterSmartDialog.observer],
     );
   }
 }
