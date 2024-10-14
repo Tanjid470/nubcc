@@ -1,13 +1,17 @@
 
+import 'dart:developer';
+
 import 'package:gsheets/gsheets.dart';
+
+import 'UserInfo/model/user_info_model.dart';
 
 class UserSheetApi{
   static const _credentials = r'''
-  {
+{
   "type": "service_account",
   "project_id": "nubcc-438509",
-  "private_key_id": "63138c77faed27a86519f9031ed095798cd5439a",
-  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCIBZ7uBA8aJcLW\n+P4+kjkgbWRItnsfnhiIaUkAtQ+rZh4jb0lowkmLGfqd3W3mX2x1gST7h/UnZiYT\n2wTSp1pDsFa35se/r8Bgq7pqUkwbQLMiUXHaXuJaURPEHC/EDfemUVDpO5IIGzTs\n6ASvFFN/M7fjvCt6DlA1eII8u1daIcz5awFjROfJZ1sQ4x9jiLjMzXdorJaurTb+\nuQnEvqxT5VFdtubOlmhKlQGyIs3+Y8NaJKQ/hTxH7XCyALrqwhH2Bx/Q4VprdaO1\nOHnV6FmOcsHIjNarVON+qkHTdfx/pqGTBQOx7wucv7EDel7JNmZHf+mZ1f9KDwL8\nyiJ3peKLAgMBAAECggEAHzO24N+CfVuDJeAJJl5Rh2xAkGN3u+l+tC/+pJBkL0um\nBzfcjZDf4O5NLJBiSPHDxfKhgqeN54NJoc1gflgQXy2gvt/MG18cELDj+sa1GZ1O\nWkV3igGxB8nIcHiMxnrzv62wk0fseDqRefTBOk491xSMjsuX55BH+vQRYBATeiOo\nLbz+XHyKolGOdz5y+KBWiu75wDJ6ZLP25uvz/2921wEa8Ez77keE2+S3uHTK2VVB\njoyYlJ+6tlIKRpyPWKKGtrlI3AP3nc+UjJLTbF/7uqOYFrZhNglV5IWVfmZTXNWU\nU4AxCYbkv9iwX5gQmh62Dg7WcSnMkH76vsqXxlZ+IQKBgQC70+o33Is5V3tn5TPW\n+5qoScLtgrGe4OaNzpLK80wtSY9JrvzK74HUTgdMW8zuUmOWbUHbdmNi8r0mgAP7\n4F3UTIySThdS+Y9X9uhBo/aLlZ0UdRoy5XD/Et19icFeRDeCIrBny7vJjgVgvha+\n/vqmZpXKcLN7ZDRWNsIKZFHf6wKBgQC5ZCYDre1I3x+B/BUk/DFo7a7EqUcisiQW\nMuboo1wiCfznMYilL5Namf2RSN/EM9p1fNfmm4qRwIY7UXNTbMBKr0bpejoKjEPc\nsnJPlsorLRk7+mfWHG/88duzWmwWstKk2SiSgROseVHQR2zVVVfv/QfYX2R4xey8\n+MERBK//4QKBgCsTYKXLCIrwCzc6k3b8YO2zbOb3kDC1t2pSM8wjnBbOxfPKE+Oe\nphHAi1/xtb/6WSiIihAAyK5KqSKJPWCohhxIKfzrt+GppjwwPfe/2K0OdOXaLVX6\n1L1K4E0IKLarwmcv+XD0gm6pCYa0UZcf9u/umu/AhQkJZA9Zo4qqkzRdAoGBAIQr\njRqEbi3MvMbL9Dso/QTkpvuX/5oRzL5yzcK/bFjsK/ybiOLTd0dZj7h7buSPX0jx\nl27WJ0VgL5Ksr/6jArh8G58qv6RzeZInOm3ZgAqmHV5wWIUCQyjfORW1+md4V8qk\n81L3aRJGb/iAY2v4azgyedxdreCYov3ajrJWWC+hAoGBALXCrHd5GCP1b8YUzoAk\nuaQBa5hGTXOkXRSC5ASeLGX32RMqIUfb8+J1rU1RsFKvXI8kJmA3WEYOLKgzRlHl\nYWOznrqn4jrCxDvvKsnXEhEhESt8kScBTnN6vbMiPegxt+eGyzePp76qM93Vel5Z\n7VzR1e7fXGpLO5XB0rmc24vE\n-----END PRIVATE KEY-----\n",
+  "private_key_id": "a23fac573bb0f3cff962f63c18e7aa2a5f2c2ae0",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDmxOZP/gDwoJ9V\n9OcqQfF+x6MNQ4cU0/Kw+ZCkQ++GqInzcxAIrhxwGIQ9XRaKEBS3yw1j5TaX50B4\nNs8a9JVqDGr3Q6wMWUuZfdcJrcjn6x+ZFRiOyjT3F+R+bQciLX7tU5wn4ODsMGkB\ng1F7sB7JbKZYNqBw8V9qygrE3SOau+Ggx6i1HhS0xcS7CuFdF2mq/r1ZzQhj4c1y\nTB1Ff2blk2LLaP3jBPnK9o7u81U6DE2qvPu0hpymCSi+0HY4GqgC3wr/d3jaAOS9\nxRX564XI6surHQQWCXsRUjL+q4jbmCYcLP3X0Ze/hKxHoZa0K39r258hVijqMcZp\nFFFN6inhAgMBAAECggEAAQJrjsc8IQgxH/Ph+kU8pZdu5eiP9ivTmtddM9x2W83C\nJZTeu/pqJBL1qo5WOSdQNixSP5EC3YR0xMZsUQBVZI7B2SuMOALlRUymldXcT6hB\n0k5bI64w1HqWvcBoILBTC33v0PfXUuSZLP3EvhYpLOMHv2RAWlhpGIxiNL9SLahE\n0zxas01KWsBYahPhgYXv8NSbrfKigNWdEKVXuShqcJu+JstUi43o/PR2R3YctCVY\nGZXxS/mOsiFgMfGd1L8xTPskg39H44gGviWruFgBhtOl7XjazwloXbZBAm+X9evy\nnyItZ6iss5f+BP+bw5goOTfYA49VKrBDOJPV51d/nQKBgQD+JvwDlue6ewG3eaJr\no3WyGt5MApjifFb3lRsYV7eJq2LVM/pNvfhOT2bW3Xd3D269srV6RKS2hKSsbYgV\nL2vrBMKSqfBAJ7XL7JTaZyNBYtwZJRNASlJDAFB8kCwtSoGvaKV2lUK3MLb4jSxW\nwSouFdv20pSzxU3mlCqMO2fdlQKBgQDocmVLrg4XmNmPB81K6mHOGFPH0I9/5nsz\nx1T7rfet4KHbmVy3dJjc2FEpEUs+eWkik7CbscZRsfXhGVovRrlZC+AiazUKfiEj\nDyMFLxOFcvH9hdFiLKqk/+ahLmW+rLFTg+b60x50I6nZf0dw8jbmaqL+iO/Ra/IV\nXMGJ2WnQHQKBgQCvOy3TQ76uIpWCbUkBMgi6LjBK9Bd5QQWtWo7976zKLPLN0TKp\nW2vSgoiDaNsvqeJOxOK/VIjElxv7DuIeyT19IyEMgkL12OtNmObg1u/F62WZqKhn\nUVb6f0L/P2BWMeLMkDhVVIBVUi81nBCQGEr+z2+D9Jk2gbk+W7YiTetFKQKBgCd1\nS9a1/DRrQPszsti1wtaOcKJpuAJZKK7Ydoemt3WvvSoe9Ys64rwSiGx1QBWh3IP/\nGCrF2cmCcR++Av4lfk8sYebV1hIq6Qsfha1amXC823FS5wFIXctWmVrhGmpsvElW\nCb6oWfITH8EJByKYK1Of5H1a14LwVQ7lSQFSg9DNAoGBAKsGMMIWj6mHMrvoGPrj\nkfBo2AIDeH5BXlTub7a1O3zjrrB2b/UJbuvhmHyEEKydkmA7ADqjko4gEb6stym1\n0/JoDTYOnirhjlfhsAM9Ai35ahrNpJki7G1DX6IF0SvcDvJVUi+BCMNiDZaHsakK\n/Lbg5iTgAWEBaJHu1B4njf+C\n-----END PRIVATE KEY-----\n",
   "client_email": "nubcc-640@nubcc-438509.iam.gserviceaccount.com",
   "client_id": "111282512136301317467",
   "auth_uri": "https://accounts.google.com/o/oauth2/auth",
@@ -15,7 +19,7 @@ class UserSheetApi{
   "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
   "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/nubcc-640%40nubcc-438509.iam.gserviceaccount.com",
   "universe_domain": "googleapis.com"
-  }
+}
   ''';
   static const _spreadSheetId ='1-M8rypfYDZPaOzMN9V129T9DcCtQGT7kWYnu6BiBzcM';
 
@@ -23,8 +27,17 @@ class UserSheetApi{
   static Worksheet? _userInfoSheet;
 
   static Future inti() async{
-    final spreadSheet = await gSheets.spreadsheet(_spreadSheetId);
-    _userInfoSheet = await _getWorkSheet(spreadSheet,sheetName:'UserInfo');
+    try{
+      final spreadSheet = await gSheets.spreadsheet(_spreadSheetId);
+      _userInfoSheet = await _getWorkSheet(spreadSheet,sheetName:'UserInfo');
+
+      final firstRow = UserInfoModel.getUserInfo();
+      _userInfoSheet!.values.insertRow(1, firstRow);
+    }
+    catch(exception){
+      log("Init error : $exception");
+    }
+
   }
 
   static _getWorkSheet(
@@ -37,5 +50,11 @@ class UserSheetApi{
     catch (exception){
       return spreadSheet.worksheetByTitle(sheetName);
     }
+  }
+
+  static Future<bool> insert(List<Map<String,dynamic>> rowList) async{
+    if(_userInfoSheet == null) return false;
+    _userInfoSheet!.values.map.appendRows(rowList);
+    return true;
   }
 }
