@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'UserInfo/view/user_info_screen.dart';
 import 'api.dart';
 
@@ -20,25 +22,25 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home:  const UserInfoScreen(),
-      // builder: FlutterSmartDialog.init(
-      //   toastBuilder: (String msg) => Center(
-      //     child: Container(
-      //       padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
-      //       decoration: BoxDecoration(borderRadius: BorderRadius.circular(25),
-      //           color: Colors.red),
-      //       child: Text(msg,
-      //         style:  const TextStyle(
-      //           color: Colors.white,
-      //           fontSize: 18,
-      //         ),
-      //       ),
-      //     ),
-      //   ),
-      //   loadingBuilder: (String msg) => LoadingAnimationWidget.hexagonDots(
-      //       color: Colors.green,
-      //       size:  20
-      //   ),
-      // ),
+      builder: FlutterSmartDialog.init(
+        toastBuilder: (String msg) => Center(
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(25),
+                color: Colors.red),
+            child: Text(msg,
+              style:  const TextStyle(
+                color: Colors.white,
+                fontSize: 18,
+              ),
+            ),
+          ),
+        ),
+        loadingBuilder: (String msg) => LoadingAnimationWidget.hexagonDots(
+            color: Colors.green,
+            size:  20
+        ),
+      ),
     );
   }
 }
