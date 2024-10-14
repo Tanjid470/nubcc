@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'UserInfo/view/user_info_screen.dart';
-import 'api.dart';
+import 'google_sheet_init.dart';
+
 
 void main() async{
-  await UserSheetApi.inti();
+  await GoogleSheetInit().inti();
   runApp(const MyApp());
 }
 

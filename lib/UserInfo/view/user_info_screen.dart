@@ -1,11 +1,12 @@
 
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
+import 'package:nubcc/UserInfo/controller/userInfo_data_link.dart';
 import 'package:nubcc/UserInfo/controller/user_info_controller.dart';
 import 'package:nubcc/UserInfo/model/user_info_model.dart';
-import 'package:nubcc/api.dart';
+
 
 class UserInfoScreen extends StatefulWidget {
   const UserInfoScreen({super.key});
@@ -398,7 +399,9 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
           userInfoController.userEmailInputValidation();
           userInfoController.numberInputValidation();
           if(userInfoController.inputValidNumber.value && userInfoController.inputValidUserEmail.value){
-
+              log("Action__________");
+            SmartDialog.showLoading();
+            SmartDialog.showToast('msg');
               final userInfoInsert = {
                 UserInfoModel.name : userInfoController.nameController.text,
                 UserInfoModel.email : userInfoController.emailController.text,
@@ -407,7 +410,7 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
                 UserInfoModel.studentId : userInfoController.studentIdController.text,
                 UserInfoModel.bloodGroup : 'B+',
               };
-              await UserSheetApi.insert([userInfoInsert]);
+              await UserInfoDataLink.insert([userInfoInsert]);
           }
         },
         child: Container(
