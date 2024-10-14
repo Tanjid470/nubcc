@@ -1,6 +1,7 @@
 
 import 'dart:developer';
 
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:gsheets/gsheets.dart';
 
 import 'UserInfo/model/user_info_model.dart';
@@ -53,8 +54,13 @@ class UserSheetApi{
   }
 
   static Future<bool> insert(List<Map<String,dynamic>> rowList) async{
-    if(_userInfoSheet == null) return false;
-    _userInfoSheet!.values.map.appendRows(rowList);
-    return true;
-  }
+    if(_userInfoSheet == null){
+      SmartDialog.dismiss();
+      return false;
+    }
+      _userInfoSheet!.values.map.appendRows(rowList);
+      SmartDialog.dismiss();
+      return true;
+    }
+
 }
