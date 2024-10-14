@@ -400,8 +400,8 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
           userInfoController.numberInputValidation();
           if(userInfoController.inputValidNumber.value && userInfoController.inputValidUserEmail.value){
               log("Action__________");
-            SmartDialog.showLoading();
-            SmartDialog.showToast('msg');
+              await UserInfoDataLink.inti();
+              SmartDialog.showLoading();
               final userInfoInsert = {
                 UserInfoModel.name : userInfoController.nameController.text,
                 UserInfoModel.email : userInfoController.emailController.text,
