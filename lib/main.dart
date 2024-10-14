@@ -39,8 +39,8 @@ class MyApp extends StatelessWidget {
           ),
         ),
         loadingBuilder: (String msg) => LoadingAnimationWidget.hexagonDots(
-            color: Colors.green,
-            size: 50
+            color: const Color(0xff0346ae),
+            size: 100
         ),
       ),
       navigatorObservers: [FlutterSmartDialog.observer],
