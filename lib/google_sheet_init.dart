@@ -1,12 +1,9 @@
 
 import 'dart:developer';
-
-import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:gsheets/gsheets.dart';
 
-import 'UserInfo/model/user_info_model.dart';
 
-class UserSheetApi{
+class GoogleSheetInit{
   static const _credentials = r'''
 {
   "type": "service_account",
@@ -25,42 +22,15 @@ class UserSheetApi{
   static const _spreadSheetId ='1-M8rypfYDZPaOzMN9V129T9DcCtQGT7kWYnu6BiBzcM';
 
   static final gSheets = GSheets(_credentials);
-  static Worksheet? _userInfoSheet;
+  late var spreadSheet;
 
-  static Future inti() async{
+  Future inti() async{
     try{
-      final spreadSheet = await gSheets.spreadsheet(_spreadSheetId);
-      _userInfoSheet = await _getWorkSheet(spreadSheet,sheetName:'UserInfo');
-
-      final firstRow = UserInfoModel.getUserInfo();
-      _userInfoSheet!.values.insertRow(1, firstRow);
+       spreadSheet = await gSheets.spreadsheet(_spreadSheetId);
     }
     catch(exception){
       log("Init error : $exception");
     }
 
   }
-
-  static _getWorkSheet(
-      Spreadsheet spreadSheet, {
-        required String sheetName
-      }) async{
-    try{
-      return await spreadSheet.addWorksheet(sheetName);
-    }
-    catch (exception){
-      return spreadSheet.worksheetByTitle(sheetName);
-    }
-  }
-
-  static Future<bool> insert(List<Map<String,dynamic>> rowList) async{
-    if(_userInfoSheet == null){
-      SmartDialog.dismiss();
-      return false;
-    }
-      _userInfoSheet!.values.map.appendRows(rowList);
-      SmartDialog.dismiss();
-      return true;
-    }
-
 }
