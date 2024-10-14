@@ -19,7 +19,6 @@ class UserInfoDataLink{
       _userInfoSheet = await _getWorkSheet(spreadSheet,sheetName:'UserInfo');
       final firstRow = UserInfoModel.getUserInfo();
       _userInfoSheet!.values.insertRow(1, firstRow);
-      log("Init UserInfoDataLink ");
     }
     catch(exception){
       log("Init error UserInfoDataLink: $exception");
