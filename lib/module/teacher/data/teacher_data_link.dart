@@ -12,6 +12,7 @@ class TeacherDataLink {
   static List<TeacherModel> teachersList = [];
 
   static Future<void> initAndFetchData() async {
+    teachersList.clear();
     try {
       final spreadSheet = await GoogleSheetInit().inti();
       _teacherSheet = await _getWorkSheet(spreadSheet, sheetName: 'Teacher');
