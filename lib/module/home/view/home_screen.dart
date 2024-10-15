@@ -8,6 +8,7 @@ import 'package:nubcc/const/app_colors.dart';
 import 'package:nubcc/const/font_constant.dart';
 import 'package:nubcc/module/home/controller/home_controller.dart';
 import 'package:nubcc/module/teacher/data/teacher_data_link.dart';
+import 'package:nubcc/routes/app_pages.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -18,20 +19,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   HomeController homeController = Get.put(HomeController());
-  bool isLoading = true;
 
-  @override
-  void initState() {
-    super.initState();
-    fetchStudentData();
-  }
-
-  void fetchStudentData() async {
-    await TeacherDataLink.initAndFetchData(); // Fetch data from Google Sheets
-    setState(() {
-      isLoading = false; // Set loading to false after fetching data
-    });
-  }
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -87,20 +75,25 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ],
           ),
-          isLoading
-              ? const Center(child: CircularProgressIndicator()) // Show loading spinner while data is being fetched
-              : ListView.builder(
-                shrinkWrap: true,
-                itemCount: TeacherDataLink.teachersList.length,
-                itemBuilder: (context, index) {
-                  final student = TeacherDataLink.teachersList[index];
-                  return ListTile(
-                    leading: CircleAvatar(child: Text(student.id)), // Display student ID
-                    title: Text(student.name), // Display student name
-                    subtitle: Text(student.university), // Display student university
-                  );
+          Row(
+            children: [
+              Expanded(child: InkWell(
+                onTap: () {
+                  Get.toNamed(Routes.teacherView);
                 },
-              ),
+                child: Container(
+                  margin: EdgeInsets.symmetric(vertical: 5),
+                  height: 50,
+                  decoration: BoxDecoration(color: Colors.green),
+                ),
+              )),
+              Expanded(child: Container(
+                margin: EdgeInsets.symmetric(vertical: 5),
+                height: 50,
+              )),
+            ],
+          )
+
         ],
       ),
     );
