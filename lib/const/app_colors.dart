@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AppColor{
-  AppColor();
+  AppColor._();
 
-  final baseColor = const Color(0xff0346ae);
+  static Color baseColor = const Color(0xff0346ae);
 }
