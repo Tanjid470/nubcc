@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:nubcc/main.dart';
 import 'package:nubcc/module/UserInfo/view/user_info_screen.dart';
 import 'package:nubcc/module/home/view/home_screen.dart';
+import 'package:nubcc/module/teacher/view/teacher_view.dart';
 
 part 'app_routes.dart';
 class AppPages{
@@ -23,6 +24,12 @@ class AppPages{
       name:_Paths.userInfoScreen,
       page: () => const UserInfoScreen(),
       transition: Transition.leftToRight,
+      curve: Curves.fastOutSlowIn,
+    ),
+    GetPage(
+      name:_Paths.teacherView,
+      page: () => const TeacherView(),
+      transition: Transition.rightToLeft,
       curve: Curves.fastOutSlowIn,
     ),
   ];

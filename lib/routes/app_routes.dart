@@ -3,6 +3,7 @@ abstract class Routes {
   Routes._();
   static const homeScreen = _Paths.homeScreen;
   static const userInfoScreen = _Paths.userInfoScreen;
+  static const teacherView = _Paths.teacherView;
 
 }
 
@@ -10,4 +11,5 @@ abstract class _Paths {
   _Paths._();
   static const homeScreen = '/home_screen';
   static const userInfoScreen = '/user_info_screen';
+  static const teacherView = '/teacher_view';
 }
