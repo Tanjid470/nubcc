@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nubcc/config/responsive_scale.dart';
 import 'package:nubcc/const/app_colors.dart';
+import 'package:nubcc/const/app_images.dart';
 import 'package:nubcc/const/font_constant.dart';
 import 'package:nubcc/module/home/controller/home_controller.dart';
+import 'package:nubcc/module/home/widget/category_card.dart';
 import 'package:nubcc/module/teacher/data/teacher_data_link.dart';
 import 'package:nubcc/routes/app_pages.dart';
 
@@ -43,12 +45,23 @@ class _HomeScreenState extends State<HomeScreen> {
             mainAxisSize: MainAxisSize.min,
             children: [
               SizedBox(
-                height: Get.height * 0.3,
+                height: Get.height / 5,
                 child: CarouselSlider.builder(
                   itemCount: homeController.splashList.length,
                   itemBuilder: (BuildContext context, int index, int realIndex) {
                     return Container(
-                      color: Colors.red,
+                      decoration: BoxDecoration(
+                          color : AppColor.baseColor,
+                          borderRadius: const BorderRadius.all(Radius.circular(10)),
+                          boxShadow: [
+                            BoxShadow(
+                                color: AppColor.baseColor.withOpacity(.5),
+                                blurRadius:1,
+                                blurStyle: BlurStyle.outer,
+                                spreadRadius: 2
+                            )
+                          ]
+                      ),
                     );
                   },
                   options: CarouselOptions(
@@ -76,7 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         // shape: BoxShape.circle,
                         borderRadius: const BorderRadius.all(Radius.circular(7)),
                         color: homeController.selectedPage.value == index
-                            ? Colors.deepOrange
+                            ? AppColor.baseColor
                             : Colors.grey.shade300,
                       ),
                     ),
@@ -87,21 +100,9 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           Row(
             children: [
-              Expanded(child: InkWell(
-                onTap: () {
-                  Get.toNamed(Routes.teacherView);
-                },
-                child: Container(
-                  margin: EdgeInsets.symmetric(vertical: 5),
-                  padding: EdgeInsets.symmetric(horizontal: 5),
-                  height: Get.height/8,
-                  decoration: BoxDecoration(color: Colors.green),
-                ),
-              )),
-              Expanded(child: Container(
-                margin: EdgeInsets.symmetric(vertical: 5),
-                height: 50,
-              )),
+              CategoryCard(image: AppImages.facultyImage, title: 'Faculty', onTap: () => Get.toNamed(Routes.teacherView)),
+              CategoryCard(image: AppImages.club, title: 'Club', onTap: () {}),
+              CategoryCard(image: AppImages.admin, title: 'Admin', onTap: () {}),
             ],
           )
         ],
@@ -112,6 +113,8 @@ class _HomeScreenState extends State<HomeScreen> {
   SizedBox verticalGap(BuildContext context,double ratio) =>
       SizedBox(height: ResponsiveScale.of(context).hp(ratio));
 }
+
+
 
 class CustomAppBar extends StatelessWidget {
   const CustomAppBar({

@@ -21,7 +21,6 @@ class TeacherDataLink {
       final spreadSheet = await GoogleSheetInit().inti();
       _teacherSheet = await _getWorkSheet(spreadSheet, sheetName: 'Teacher');
       if (_teacherSheet != null) {
-
         final rows = await _teacherSheet!.values.allRows();
         final startRow = _currentPage * _pageSize + 1;
         final pageRows = rows.skip(startRow).take(_pageSize).toList();
@@ -32,8 +31,12 @@ class TeacherDataLink {
               'Id': row[0],
               'Name': row[1],
               'University': row[2],
+              'Contact': row[3],
+              'Email': row[4],
+              'LinkedIn': row[5],
+              'Title': row[6],
             };
-            teachersList.add(TeacherModel.fromMap(teacherMap));
+            teachersList.add(TeacherModel.fromJson(teacherMap));
           }
 
           log("Data fetched successfully. Total students: ${teachersList.length}");

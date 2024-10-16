@@ -1,26 +1,39 @@
 class TeacherModel {
-  final String id;
-  final String name;
-  final String university;
+  String? id;
+  String? name;
+  String? university;
+  String? contact;
+  String? email;
+  String? linkedIn;
+  String? title;
 
   TeacherModel({
-    required this.id,
-    required this.name,
-    required this.university,
+    this.id,
+    this.name,
+    this.university,
+    this.contact,
+    this.email,
+    this.linkedIn,
+    this.title,
   });
-
-  factory TeacherModel.fromMap(Map<String, String> map) {
-    return TeacherModel(
-      id: map['Id'] ?? '',
-      name: map['Name'] ?? '',
-      university: map['University'] ?? '',
-    );
+   TeacherModel.fromJson(Map<String, dynamic> map) {
+      id = map['Id'];
+      name = map['Name'] ;
+      university = map['University'] ;
+      contact = map['Contact'];
+      email = map['Email'] ;
+      linkedIn = map['LinkedIn'];
+      title = map['Title'];
   }
-  Map<String, String> toMap() {
-    return {
-      'Id': id,
-      'Name': name,
-      'University': university,
-    };
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['Id'] = id;
+    data['Name'] = name;
+    data['University'] = university;
+    data['Contact'] = contact;
+    data['Email'] = email;
+    data['LinkedIn'] = linkedIn;
+    data['Title'] = title;
+    return data;
   }
 }
