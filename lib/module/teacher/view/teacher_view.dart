@@ -2,6 +2,9 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:nubcc/config/size_config.dart';
 import 'package:nubcc/const/app_colors.dart';
 import 'package:nubcc/const/font_constant.dart';
 import 'package:nubcc/module/teacher/data/teacher_data_link.dart';
@@ -25,18 +28,16 @@ class _TeacherViewState extends State<TeacherView> {
     fetchStudentData();
     scrollController.addListener(() async {
       if(scrollController.position.maxScrollExtent == scrollController.offset){
-        // bool reFetch = await eBooksController.setAllEbooks(eBooksController.allEbookObject.next!);
-        // if(reFetch){
-        //   setState(() {});
-        // }
+        fetchStudentData();
+        setState(() {});
       }
     },);
   }
 
   void fetchStudentData() async {
-    await TeacherDataLink.initAndFetchData(); // Fetch data from Google Sheets
+    await TeacherDataLink.initAndFetchData();
     setState(() {
-      isLoading = false; // Set loading to false after fetching data
+      isLoading = false;
     });
   }
   @override
@@ -44,10 +45,17 @@ class _TeacherViewState extends State<TeacherView> {
     return Scaffold(
       appBar: AppBar(title: const Text("Teacher"),centerTitle: true,),
       body: isLoading
-          ? const Center(child: CircularProgressIndicator()) // Show loading spinner while data is being fetched
+          ? Center(
+            heightFactor: 10,
+            child: LoadingAnimationWidget.hexagonDots(
+                color: AppColor.baseColor,
+                size: Get.height/10
+            ),
+          ) // Show loading spinner while data is being fetched
           : Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15.0),
             child: GridView.builder(
+              controller: scrollController,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 crossAxisSpacing: 10,
@@ -60,7 +68,7 @@ class _TeacherViewState extends State<TeacherView> {
                   padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
                   decoration:  BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
                     border: Border.all(
                       color: AppColor.baseColor.withOpacity(.2)
                     ),
@@ -90,6 +98,7 @@ class _TeacherViewState extends State<TeacherView> {
                   ),
                 );
               },
+
             ),
           )
 
