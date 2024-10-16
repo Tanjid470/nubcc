@@ -11,32 +11,52 @@ class TeacherDataLink {
 
   static List<TeacherModel> teachersList = [];
 
-  static Future<void> initAndFetchData() async {
-    teachersList.clear();
+  static const int _pageSize = 10;
+  static int _currentPage = 0;
+  static bool _hasMoreData = true;
+
+  static Future<bool> initAndFetchData() async {
+    if (!_hasMoreData) return false;
     try {
       final spreadSheet = await GoogleSheetInit().inti();
       _teacherSheet = await _getWorkSheet(spreadSheet, sheetName: 'Teacher');
-
       if (_teacherSheet != null) {
+
         final rows = await _teacherSheet!.values.allRows();
-        for (var i = 1; i < rows.length; i++) {
-          final studentMap = {
-            'Id': rows[i][0], // First column: Id
-            'Name': rows[i][1], // Second column: Name
-            'University': rows[i][2], // Third column: University
-          };
-          teachersList.add(TeacherModel.fromMap(studentMap));
+        final startRow = _currentPage * _pageSize + 1;
+        final pageRows = rows.skip(startRow).take(_pageSize).toList();
+
+        if (pageRows.isNotEmpty) {
+          for (var row in pageRows) {
+            final teacherMap = {
+              'Id': row[0],
+              'Name': row[1],
+              'University': row[2],
+            };
+            teachersList.add(TeacherModel.fromMap(teacherMap));
+          }
+
+          log("Data fetched successfully. Total students: ${teachersList.length}");
+          _currentPage++;
+
+          if (pageRows.length < _pageSize) {
+            _hasMoreData = false;
+          }
+        } else {
+          _hasMoreData = false; // No more data found
+          log("No more data available.");
         }
-        log("Data fetched successfully. Total students: ${teachersList.length}");
-      } else {
-        log("Student worksheet not found.");
       }
+      else {
+        log("Teacher worksheet not found.");
+      }
+      return true;
     } catch (exception) {
-      log("Error fetching student data: $exception");
+      log("Error fetching teacher data: $exception");
+      return true;
     }
   }
 
-  // Helper method to get the Worksheet (implement this based on your Google Sheets setup)
   static Future<Worksheet?> _getWorkSheet(Spreadsheet spreadsheet, {required String sheetName}) async {
     return spreadsheet.worksheetByTitle(sheetName);
   }

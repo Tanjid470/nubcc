@@ -21,6 +21,7 @@ class _TeacherViewState extends State<TeacherView> {
   final ScrollController scrollController = ScrollController();
 
   bool isLoading = true;
+  bool hasMoreData = true;
 
   @override
   void initState() {
@@ -35,7 +36,7 @@ class _TeacherViewState extends State<TeacherView> {
   }
 
   void fetchStudentData() async {
-    await TeacherDataLink.initAndFetchData();
+    hasMoreData = await TeacherDataLink.initAndFetchData();
     setState(() {
       isLoading = false;
     });
@@ -61,44 +62,59 @@ class _TeacherViewState extends State<TeacherView> {
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10,
               ),
-              itemCount: TeacherDataLink.teachersList.length,
+              itemCount: TeacherDataLink.teachersList.length + 1,
               itemBuilder: (context, index) {
-                final student = TeacherDataLink.teachersList[index];
-                return Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
-                  decoration:  BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: const BorderRadius.all(Radius.circular(10)),
-                    border: Border.all(
-                      color: AppColor.baseColor.withOpacity(.2)
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.shade300,
-                        spreadRadius: 1
-                      )
-                    ]
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(20),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.primaries[Random().nextInt(Colors.primaries.length)].withOpacity(0.5),
+                if(index < TeacherDataLink.teachersList.length){
+                  final student = TeacherDataLink.teachersList[index];
+                  return Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+                    decoration:  BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: const BorderRadius.all(Radius.circular(10)),
+                        border: Border.all(
+                            color: AppColor.baseColor.withOpacity(.2)
                         ),
-                          child: Text(student.name[0].toUpperCase(),
-                              style: TextStyle(fontSize: TextSize.font36(context)),
+                        boxShadow: [
+                          BoxShadow(
+                              color: Colors.grey.shade300,
+                              spreadRadius: 1
                           )
-                      ),
-                      Text(student.name, style: const TextStyle(fontWeight: FontWeight.bold)), // Display student name
-                      Text(student.university), // Display student university
-                    ],
-                  ),
-                );
-              },
-
+                        ]
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                            padding: const EdgeInsets.all(20),
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.primaries[Random().nextInt(Colors.primaries.length)].withOpacity(0.5),
+                            ),
+                            child: Text(student.name[0].toUpperCase(),
+                              style: TextStyle(fontSize: TextSize.font36(context)),
+                            )
+                        ),
+                        Text(student.name, style: const TextStyle(fontWeight: FontWeight.bold)), // Display student name
+                        Text(student.university), // Display student university
+                      ],
+                    ),
+                  );
+                }
+                else{
+                    if(hasMoreData == false){
+                      return Center(child: Text(TeacherDataLink.teachersList.length.toString()));
+                    }
+                    else{
+                      return Center(
+                        heightFactor: 10,
+                        child: LoadingAnimationWidget.hexagonDots(
+                            color: AppColor.baseColor,
+                            size:  Get.height / 15
+                        ),
+                      );
+                    }
+                  }
+                }
             ),
           )
 
