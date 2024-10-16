@@ -27,6 +27,16 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           const CustomAppBar(),
           verticalGap(context, 1),
+          body()
+        ],
+      ),
+    );
+  }
+  Widget body(){
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      child: Column(
+        children: [
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -83,7 +93,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
                 child: Container(
                   margin: EdgeInsets.symmetric(vertical: 5),
-                  height: 50,
+                  padding: EdgeInsets.symmetric(horizontal: 5),
+                  height: Get.height/8,
                   decoration: BoxDecoration(color: Colors.green),
                 ),
               )),
@@ -93,7 +104,6 @@ class _HomeScreenState extends State<HomeScreen> {
               )),
             ],
           )
-
         ],
       ),
     );
