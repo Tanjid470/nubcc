@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:nubcc/global/widget/custom_test_format.dart';
 import 'package:nubcc/global/widget/link_button_card.dart';
 import 'package:nubcc/module/clubCommittee/model/club_committee_model.dart';
 import 'package:nubcc/config/responsive_scale.dart';
@@ -102,13 +103,13 @@ class _ClubCommitteeCardState extends State<ClubCommitteeCard> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(widget.clubCommittee.semester ?? " --- "),
-                              Text(widget.clubCommittee.section ?? " --- "),
-                              Text(widget.clubCommittee.id ?? " --- "),
-                              Text(widget.clubCommittee.contact ?? " --- "),
-                              Text(widget.clubCommittee.email ?? " --- "),
-                              Text(widget.clubCommittee.hometown ?? " --- "),
-                              Text(widget.clubCommittee.bloodGroup ?? " --- "),
+                              CustomTextFormat(widget: widget, subtitle: 'Semester', title: widget.clubCommittee.semester.toString()),
+                              CustomTextFormat(widget: widget, subtitle: 'Section', title: widget.clubCommittee.section.toString()),
+                              CustomTextFormat(widget: widget, subtitle: 'Id', title: widget.clubCommittee.id.toString()),
+                              CustomTextFormat(widget: widget, subtitle: 'contact', title: widget.clubCommittee.contact.toString()),
+                              CustomTextFormat(widget: widget, subtitle: 'Email', title: widget.clubCommittee.email.toString()),
+                              CustomTextFormat(widget: widget, subtitle: 'Hometown', title: widget.clubCommittee.hometown.toString()),
+                              CustomTextFormat(widget: widget, subtitle: 'Blood Group', title: widget.clubCommittee.bloodGroup.toString()),
                             ],
                           ),
                         ),
@@ -147,3 +148,4 @@ class _ClubCommitteeCardState extends State<ClubCommitteeCard> {
     );
   }
 }
+
