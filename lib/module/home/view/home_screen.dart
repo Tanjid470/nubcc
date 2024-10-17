@@ -98,11 +98,21 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ],
           ),
-          Row(
+          Column(
             children: [
-              CategoryCard(image: AppImages.facultyImage, title: 'Faculty', onTap: () => Get.toNamed(Routes.teacherView)),
-              CategoryCard(image: AppImages.club, title: 'Club', onTap: () {}),
-              //CategoryCard(image: AppImages.admin, title: 'Admin', onTap: () {}),
+              Row(
+                children: [
+                  CategoryCard(image: AppImages.facultyImage, title: 'Faculty', onTap: () => Get.toNamed(Routes.teacherView)),
+                  CategoryCard(image: AppImages.club, title: 'Club Leader', onTap: () {}),
+                ],
+              ),
+              Row(
+                children: [
+                  CategoryCard(image: AppImages.cr, title: 'Class Representative', onTap: () {}),
+                  CategoryCard(image: AppImages.admin, title: 'Admin', onTap: () {}),
+
+                ],
+              ),
             ],
           )
         ],
