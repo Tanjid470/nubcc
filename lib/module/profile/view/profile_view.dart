@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:nubcc/const/app_colors.dart';
 import '../../../const/font_constant.dart';
 
-class LocationView extends StatefulWidget {
-  const LocationView({super.key});
+class ProfileView extends StatefulWidget {
+  const ProfileView({super.key});
 
   @override
-  State<LocationView> createState() => _LocationViewState();
+  State<ProfileView> createState() => _ProfileViewState();
 }
 
-class _LocationViewState extends State<LocationView> {
+class _ProfileViewState extends State<ProfileView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,10 +17,10 @@ class _LocationViewState extends State<LocationView> {
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
-          color: AppColor.baseColorShade300
+            color: AppColor.baseColorShade300
         ),
         child: Center(
-          child: Text("Location",
+          child: Text("Profile",
             style: TextStyle(
                 color: Colors.white,
                 fontSize: TextSize.font30(context),
