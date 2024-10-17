@@ -7,6 +7,8 @@ import 'package:nubcc/module/home/view/home_screen.dart';
 import 'package:nubcc/module/location/view/location_view.dart';
 import 'package:nubcc/module/profile/view/profile_view.dart';
 
+import '../calculator/caloculator_view.dart';
+
 class BottomNavigationWidget extends StatefulWidget {
   const BottomNavigationWidget({super.key});
 
@@ -35,10 +37,10 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
     return Scaffold(
       body: PageView(
         controller: pageController,
-        children: const [
-         HomeScreen(),
-         LocationView(),
-         ProfileView(),
+        children: [
+         const HomeScreen(),
+          CgpaCalculator(),
+         const ProfileView(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
