@@ -12,7 +12,7 @@ import 'package:nubcc/module/teacher/data/teacher_data_link.dart';
 import 'package:nubcc/module/teacher/model/teacher_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'link_button_card.dart';
+import '../../../global/widget/link_button_card.dart';
 
 class TeacherView extends StatefulWidget {
   const TeacherView({super.key});
@@ -156,7 +156,7 @@ class TeacherCard extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      LinkButtonCard(teacher: teacher, icon: Icons.call, title: 'Call',
+                      LinkButtonCard(icon: Icons.call, title: 'Call',
                         onTap: () {
                           if(teacher.contact != null && teacher.contact!.isNotEmpty) {
                           makePhoneCall("0${teacher.contact.toString()}");
@@ -165,11 +165,11 @@ class TeacherCard extends StatelessWidget {
                             SmartDialog.showToast('number not available',);}
                         }
                       ),
-                      LinkButtonCard(teacher: teacher, icon: Icons.email_outlined, title: 'Email',
+                      LinkButtonCard(icon: Icons.email_outlined, title: 'Email',
                         onTap: () {
                           sentMail(teacher.email.toString());
                         },),
-                      LinkButtonCard(teacher: teacher, icon: Icons.library_add_outlined, title: 'LinkedIn', onTap: () {  },)
+                      LinkButtonCard(icon: Icons.library_add_outlined, title: 'LinkedIn', onTap: () {  },)
 
                     ],
                   )

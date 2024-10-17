@@ -1,5 +1,3 @@
-
-
 import 'dart:developer';
 import 'package:gsheets/gsheets.dart';
 import 'package:nubcc/google_sheet_init.dart';

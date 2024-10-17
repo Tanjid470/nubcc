@@ -103,7 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Row(
                 children: [
                   CategoryCard(image: AppImages.facultyImage, title: 'Faculty', onTap: () => Get.toNamed(Routes.teacherView)),
-                  CategoryCard(image: AppImages.club, title: 'Club Committee', onTap: () {}),
+                  CategoryCard(image: AppImages.club, title: 'Club Committee', onTap: () => Get.toNamed(Routes.clubCommitteeView)),
                 ],
               ),
               Row(
@@ -148,8 +148,8 @@ class CustomAppBar extends StatelessWidget {
         ),
 
         borderRadius: const BorderRadius.only(
-            bottomLeft: Radius.circular(20),
-            bottomRight: Radius.circular(20)
+            bottomLeft: Radius.circular(10),
+            bottomRight: Radius.circular(10)
         )
       ),
       child: Text("NUBCC",
