@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:nubcc/const/app_colors.dart';
+import 'package:nubcc/const/app_images.dart';
 import 'package:nubcc/const/font_constant.dart';
 import 'package:nubcc/module/home/view/home_screen.dart';
 import 'package:nubcc/module/location/view/location_view.dart';
@@ -41,15 +43,46 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         items:  <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: selectedIndex == 0 ? const Icon(Icons.home) : const Icon(Icons.home_outlined), label: 'Home'),
-          BottomNavigationBarItem(icon: selectedIndex == 1 ? const Icon(Icons.location_on) : const Icon(Icons.location_on_outlined), label: 'Location'),
-          BottomNavigationBarItem(icon:selectedIndex == 2 ? const Icon(Icons.person) : const Icon(Icons.person_2_outlined), label: 'Profile'),
+          BottomNavigationBarItem(icon: Container(
+            height: Get.height/30,
+            width: Get.height/30,
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: selectedIndex == 0
+                        ? AssetImage(AppImages.homeIcon)
+                        : AssetImage(AppImages.unselectedHome)
+                )
+            ),
+          ),label: 'Home'),
+          BottomNavigationBarItem(icon: Container(
+            height: Get.height/30,
+            width: Get.height/30,
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: selectedIndex == 1
+                        ? AssetImage(AppImages.locationIcon)
+                        : AssetImage(AppImages.unselectedLocation)
+                )
+            ),
+          ),label: 'Location'),
+          BottomNavigationBarItem(icon: Container(
+            height: Get.height/30,
+            width: Get.height/30,
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: selectedIndex == 2
+                        ? AssetImage(AppImages.profileIcon)
+                        : AssetImage(AppImages.unselectedProfile)
+                )
+            ),
+          ),label: 'Profile'),
+
         ],
         currentIndex: selectedIndex,
-        unselectedItemColor: AppColor.baseColorShade300,
+        unselectedItemColor: AppColor.iconColor,
         selectedIconTheme:  IconThemeData(color: AppColor.baseColor,),
         iconSize: TextSize.font36(context),
-        selectedFontSize: TextSize.font15(context),
+        selectedFontSize: TextSize.font14(context),
         selectedItemColor: AppColor.baseColor,
 
         onTap: onTapped,

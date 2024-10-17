@@ -8,6 +8,8 @@ import 'package:nubcc/module/clubCommittee/view/club_committee_screen.dart';
 import 'package:nubcc/module/home/view/home_screen.dart';
 import 'package:nubcc/module/teacher/view/teacher_view.dart';
 
+
+
 part 'app_routes.dart';
 class AppPages{
   AppPages._();
@@ -22,6 +24,7 @@ class AppPages{
       transition: Transition.leftToRight,
       curve: Curves.fastOutSlowIn,
     ),
+
     GetPage(
       name:_Paths.homeScreen,
       page: () => const HomeScreen(),

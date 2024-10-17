@@ -8,4 +8,7 @@ class AppImages{
   static String homeIcon = "assets/images/homeIcon.png";
   static String locationIcon = "assets/images/locationIcon.png";
   static String profileIcon = "assets/images/profileIcon.png";
+  static String unselectedHome = "assets/images/unselectedHome.png";
+  static String unselectedLocation = "assets/images/unselectedLocation.png";
+  static String unselectedProfile = "assets/images/unselectedProfile.png";
 }
