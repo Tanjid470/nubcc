@@ -6,6 +6,8 @@ import 'package:nubcc/const/app_colors.dart';
 import 'package:nubcc/module/clubCommittee/data/club_committee_data_fetch.dart';
 import 'package:nubcc/module/clubCommittee/widget/club_committee_card.dart';
 
+import '../../../const/font_constant.dart';
+
 class ClubCommitteeView extends StatefulWidget {
   const ClubCommitteeView({super.key});
 
@@ -41,7 +43,20 @@ class _ClubCommitteeViewState extends State<ClubCommitteeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text("Club Committee"),centerTitle: true,),
+        appBar: AppBar(
+          title: Text("Club Committee",
+            style: TextStyle(
+                letterSpacing: 5,
+                fontSize: TextSize.font24(context),
+                fontWeight: FontWeight.w700,
+                color: AppColor.baseColor
+            ),
+          ),
+          centerTitle: true,
+          foregroundColor: AppColor.baseColor,
+          shadowColor: AppColor.baseColorShade500,
+          surfaceTintColor: Colors.blueAccent,
+        ),
         body: isLoading
             ? Center(
               heightFactor: 10,

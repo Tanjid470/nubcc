@@ -49,7 +49,21 @@ class _TeacherViewState extends State<TeacherView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Teacher"),centerTitle: true,),
+      appBar: AppBar(
+        title: Text("Teacher",
+          style: TextStyle(
+
+            letterSpacing: 5,
+            fontSize: TextSize.font24(context),
+            fontWeight: FontWeight.w700,
+            color: AppColor.baseColor
+          ),
+        ),
+        centerTitle: true,
+        foregroundColor: AppColor.baseColor,
+        shadowColor: AppColor.baseColorShade500,
+        surfaceTintColor: Colors.blueAccent,
+      ),
       body: isLoading
           ? Center(
             heightFactor: 10,
