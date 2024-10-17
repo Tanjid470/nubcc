@@ -22,6 +22,8 @@ class CategoryCard extends StatelessWidget {
         child: Column(
           children: [
             InkWell(
+              highlightColor: AppColor.baseColorShade500,
+              borderRadius: const BorderRadius.all(Radius.circular(10)),
               onTap: onTap,
               child: Container(
                 margin: const EdgeInsets.symmetric(vertical: 5,horizontal: 8),
