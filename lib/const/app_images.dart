@@ -5,4 +5,7 @@ class AppImages{
   static String cr = "assets/images/cr.png";
   static String crMulti = "assets/images/crmulti.png";
   static String admin = "assets/images/admin.png";
+  static String homeIcon = "assets/images/homeIcon.png";
+  static String locationIcon = "assets/images/locationIcon.png";
+  static String profileIcon = "assets/images/profileIcon.png";
 }
