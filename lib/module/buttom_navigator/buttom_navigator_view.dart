@@ -84,7 +84,6 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
         iconSize: TextSize.font36(context),
         selectedFontSize: TextSize.font14(context),
         selectedItemColor: AppColor.baseColor,
-
         onTap: onTapped,
       ),
     );
