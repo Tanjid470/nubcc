@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nubcc/const/app_colors.dart';
 import 'package:nubcc/module/home/view/home_screen.dart';
 import 'package:nubcc/module/location/view/location_view.dart';
+import 'package:nubcc/module/profile/view/profile_view.dart';
 
 class BottomNavigationWidget extends StatefulWidget {
   const BottomNavigationWidget({super.key});
@@ -34,7 +35,7 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
         children: const [
          HomeScreen(),
          LocationView(),
-         HomeScreen(),
+         ProfileView(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
