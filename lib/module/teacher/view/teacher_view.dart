@@ -2,14 +2,17 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:nubcc/config/responsive_scale.dart';
-import 'package:nubcc/config/size_config.dart';
 import 'package:nubcc/const/app_colors.dart';
 import 'package:nubcc/const/font_constant.dart';
 import 'package:nubcc/module/teacher/data/teacher_data_link.dart';
 import 'package:nubcc/module/teacher/model/teacher_model.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import 'link_button_card.dart';
 
 class TeacherView extends StatefulWidget {
   const TeacherView({super.key});
@@ -109,7 +112,7 @@ class TeacherCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
-      margin: const EdgeInsets.only(bottom: 5),
+      margin: const EdgeInsets.only(bottom: 10),
       decoration:  BoxDecoration(
           color: Colors.white,
           borderRadius: const BorderRadius.all(Radius.circular(10)),
@@ -133,7 +136,7 @@ class TeacherCard extends StatelessWidget {
                 shape: BoxShape.circle,
                 color: Colors.primaries[Random().nextInt(Colors.primaries.length)].withOpacity(0.5),
               ),
-              child: Text( teacher.name != null && teacher.name!.isNotEmpty
+              child: Text(teacher.name != null && teacher.name!.isNotEmpty
                   ? teacher.name![0].toUpperCase()
                   : '',
                 style: TextStyle(fontSize: TextSize.font36(context)),
@@ -152,45 +155,22 @@ class TeacherCard extends StatelessWidget {
                   Text(teacher.email ?? "Null"),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
-
                     children: [
-                      Expanded(
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 5),
-                          margin: EdgeInsets.all(5),
-                          decoration: BoxDecoration(
-                            color: AppColor.baseColorShade300,
-                            borderRadius: const BorderRadius.all(Radius.circular(10))
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Icon(Icons.call,size: TextSize.font20(context),),
-                              Text("Call",style: TextStyle(fontSize: TextSize.font16(context)),),
-                            ],
-                          ),
-                        ),
+                      LinkButtonCard(teacher: teacher, icon: Icons.call, title: 'Call',
+                        onTap: () {
+                          if(teacher.contact != null && teacher.contact!.isNotEmpty) {
+                          makePhoneCall("0${teacher.contact.toString()}");
+                          }
+                          else{
+                            SmartDialog.showToast('number not available',);}
+                        }
                       ),
-                      Expanded(
-                        child: Container(
-                          padding: EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                            color: AppColor.baseColorShade500,
-                            borderRadius: BorderRadius.all(Radius.circular(10))
-                          ),
-                          child: Text("Email"),
-                        ),
-                      ),
-                      Expanded(
-                        child: Container(
-                          padding: EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                            color: AppColor.baseColorShade500,
-                            borderRadius: BorderRadius.all(Radius.circular(10))
-                          ),
-                          child: Text("LinkedIn"),
-                        ),
-                      ),
+                      LinkButtonCard(teacher: teacher, icon: Icons.email_outlined, title: 'Email',
+                        onTap: () {
+                          sentMail(teacher.email.toString());
+                        },),
+                      LinkButtonCard(teacher: teacher, icon: Icons.library_add_outlined, title: 'LinkedIn', onTap: () {  },)
+
                     ],
                   )
                 ],)
@@ -198,5 +178,40 @@ class TeacherCard extends StatelessWidget {
         ],
       ),
     );
+  }
+  void makePhoneCall(String phoneNumber) async {
+    final Uri launchUri = Uri(
+      scheme: 'tel',
+      path: phoneNumber,
+    );
+    await launchUrl(launchUri);
+  }
+
+  void sentMail(String email) async {
+    String? emailCheck= userEmailInputValidation(email);
+    if(emailCheck == null){
+      final Uri launchUri = Uri(
+        scheme: 'mailto',
+        path: email,
+      );
+      await launchUrl(launchUri);
+      SmartDialog.showToast("sent");
+    }
+    else{
+      SmartDialog.showToast(emailCheck);
+    }
+  }
+  String? userEmailInputValidation(String email){
+    bool emailValid = RegExp(
+        r"^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+    ).hasMatch(email);
+
+    if(email.isEmpty){
+      return "email is empty";
+    }
+    else if(emailValid != true){
+     return "not a valid email";
+    }
+    return null;
   }
 }

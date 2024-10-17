@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nubcc/const/app_colors.dart';
 import 'package:nubcc/const/font_constant.dart';
-import 'package:nubcc/routes/app_pages.dart';
+
 
 class CategoryCard extends StatelessWidget {
 

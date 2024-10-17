@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:nubcc/routes/app_pages.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'const/font_constant.dart';
 import 'google_sheet_init.dart';
 import 'module/UserInfo/view/user_info_screen.dart';
 
@@ -37,14 +38,14 @@ class MyApp extends StatelessWidget {
       builder: FlutterSmartDialog.init(
         toastBuilder: (String msg) => Center(
           child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(25),
-                color: Colors.red
+            padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 8),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),
+                color: Colors.red.shade300
             ),
             child: Text(msg,
-              style:  const TextStyle(
+              style:   TextStyle(
                 color: Colors.white,
-                fontSize: 100,
+                fontSize: TextSize.font16(context),
               ),
             ),
           ),

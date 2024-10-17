@@ -36,6 +36,7 @@ class TeacherDataLink {
               'LinkedIn': row[5],
               'Title': row[6],
             };
+            log(teacherMap.toString());
             teachersList.add(TeacherModel.fromJson(teacherMap));
           }
 
