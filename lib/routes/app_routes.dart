@@ -4,6 +4,8 @@ abstract class Routes {
   static const homeScreen = _Paths.homeScreen;
   static const userInfoScreen = _Paths.userInfoScreen;
   static const teacherView = _Paths.teacherView;
+  static const clubCommitteeView = _Paths.clubCommitteeView;
+  static const bottomNavigationWidget = _Paths.bottomNavigationWidget;
 
 }
 
@@ -12,4 +14,6 @@ abstract class _Paths {
   static const homeScreen = '/home_screen';
   static const userInfoScreen = '/user_info_screen';
   static const teacherView = '/teacher_view';
+  static const clubCommitteeView = '/club_committee_view';
+  static const bottomNavigationWidget = '/bottom_navigation_widget';
 }
