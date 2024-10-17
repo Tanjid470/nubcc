@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nubcc/const/app_colors.dart';
+import 'package:nubcc/const/font_constant.dart';
 import 'package:nubcc/module/home/view/home_screen.dart';
 import 'package:nubcc/module/location/view/location_view.dart';
 import 'package:nubcc/module/profile/view/profile_view.dart';
@@ -47,7 +48,10 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
         currentIndex: selectedIndex,
         unselectedItemColor: AppColor.baseColorShade300,
         selectedIconTheme:  IconThemeData(color: AppColor.baseColor,),
-        iconSize: 35,
+        iconSize: TextSize.font36(context),
+        selectedFontSize: TextSize.font15(context),
+        selectedItemColor: AppColor.baseColor,
+
         onTap: onTapped,
       ),
     );
