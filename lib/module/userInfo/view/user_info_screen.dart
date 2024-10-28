@@ -395,67 +395,69 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
   Widget saveButton(){
     return userInfoController.saveButtonEnableFlag.value
         ? InkWell(
-        onTap: () async{
-          userInfoController.userEmailInputValidation();
-          userInfoController.numberInputValidation();
-          if(userInfoController.inputValidNumber.value && userInfoController.inputValidUserEmail.value){
-              log("Action__________");
-              await UserInfoDataLink.inti();
-              SmartDialog.showLoading();
-              final userInfoInsert = {
-                UserInfoModel.name : userInfoController.nameController.text,
-                UserInfoModel.email : userInfoController.emailController.text,
-                UserInfoModel.number : userInfoController.phoneController.text,
-                UserInfoModel.semester : userInfoController.semesterID,
-                UserInfoModel.studentId : userInfoController.studentIdController.text,
-                UserInfoModel.bloodGroup : 'B+',
-              };
-              await UserInfoDataLink.insert([userInfoInsert]);
-          }
-        },
-        child: Container(
-              width: MediaQuery.of(context).size.width,
-              padding: const EdgeInsets.symmetric(vertical: 10),
-              margin: const EdgeInsets.symmetric(horizontal: 10),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  gradient: const LinearGradient(colors: [
-                    Color(0xff0346ae),
-                    Color(0xff012351),
-                  ]),
-                  boxShadow:const [
-                    BoxShadow(
-                      color: Colors.black, // Shadow color
-                      spreadRadius: 1,
-                      offset: Offset(1, 2),
-                    )
-                  ]
-              ),
-              child: const Text(
-                'Save',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontFamily: 'HindSiliguri',
-                    fontSize: 16),
-                textAlign: TextAlign.center,
-              ),
+            onTap: () async{
+              userInfoController.userEmailInputValidation();
+              userInfoController.numberInputValidation();
+              if(userInfoController.inputValidNumber.value && userInfoController.inputValidUserEmail.value){
+                  SmartDialog.showLoading();
+                  await UserInfoDataLink.inti();
+                  final userInfoInsert = {
+                    UserInfoModel.name : userInfoController.nameController.text,
+                    UserInfoModel.email : userInfoController.emailController.text,
+                    UserInfoModel.number : userInfoController.phoneController.text,
+                    UserInfoModel.semester : userInfoController.semesterID,
+                    UserInfoModel.studentId : userInfoController.studentIdController.text,
+                    UserInfoModel.bloodGroup : 'B+',
+                  };
+                  await UserInfoDataLink.insert([userInfoInsert]);
+              }
+            },
+            child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  margin: const EdgeInsets.symmetric(horizontal: 10),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      gradient: const LinearGradient(colors: [
+                        Color(0xff0346ae),
+                        Color(0xff012351),
+                      ]),
+                      boxShadow:const [
+                        BoxShadow(
+                          color: Colors.black, // Shadow color
+                          spreadRadius: 1,
+                          offset: Offset(1, 2),
+                        )
+                      ]
+                  ),
+                  child: const Text(
+                    'Save',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'HindSiliguri',
+                        fontSize: 16),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+          )
+        : InkWell(
+          onTap: () => SmartDialog.showToast('fill up all required field'),
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            padding: const EdgeInsets.symmetric(vertical: 10),
+            margin: const EdgeInsets.symmetric(horizontal: 10),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8.0),
+                color: Colors.grey
             ),
-        )
-        : Container(
-          width: MediaQuery.of(context).size.width,
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          margin: const EdgeInsets.symmetric(horizontal: 10),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8.0),
-              color: Colors.grey
-          ),
-          child: Text(
-            'Save',
-            style: TextStyle(
-                color: Colors.white,
-                fontFamily: 'HindSiliguri',
-                fontSize: textSize),
-            textAlign: TextAlign.center,
+            child: Text(
+              'Save',
+              style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: 'HindSiliguri',
+                  fontSize: textSize),
+              textAlign: TextAlign.center,
+            ),
           ),
         );
   }
