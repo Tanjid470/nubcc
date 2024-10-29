@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:nubcc/const/app_colors.dart';
+import 'package:nubcc/const/font_constant.dart';
 
 class CgpaCalculator extends StatefulWidget {
   @override
@@ -29,7 +31,20 @@ class _CgpaCalculatorState extends State<CgpaCalculator> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('CGPA Calculator')),
+      appBar: AppBar(
+        title: Text("CGPA Calculator",
+          style: TextStyle(
+              letterSpacing: 5,
+              fontSize: TextSize.font24(context),
+              fontWeight: FontWeight.w700,
+              color: AppColor.baseColor
+          ),
+        ),
+        centerTitle: true,
+        foregroundColor: AppColor.baseColor,
+        shadowColor: AppColor.baseColorShade500,
+        surfaceTintColor: Colors.blueAccent,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
