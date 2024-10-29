@@ -49,6 +49,21 @@ class _CgpaCalculatorState extends State<CgpaCalculator> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
+            DropdownButton<int>(
+              value: selectedSemesters,
+              items: List.generate(
+                maxSemesters,
+                    (index) => DropdownMenuItem(
+                  value: index + 1,
+                  child: Text('Calculate for ${index + 1} semesters'),
+                ),
+              ),
+              onChanged: (value) {
+                setState(() {
+                  selectedSemesters = value!;
+                });
+              },
+            ),
             Expanded(
               child: ListView.builder(
                 itemCount: selectedSemesters,
@@ -63,9 +78,28 @@ class _CgpaCalculatorState extends State<CgpaCalculator> {
                           Expanded(
                             child: TextField(
                               decoration: InputDecoration(
-                                labelText: 'Total Credits',
-                                border: OutlineInputBorder(),
+                                contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 0),
+                                hintText: "Total credits",
+                                hintStyle: TextStyle(
+                                  fontFamily: 'HindSiliguri',
+                                  color: Colors.grey.shade400,
+                                  fontSize: 16,
+                                ),
+                                border: const OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(Radius.circular(8)),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: const BorderRadius.all(Radius.circular(8)),
+                                  borderSide: BorderSide(color: Colors.grey.shade400), // Normal border color
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: const BorderRadius.all(Radius.circular(8)),
+                                  borderSide: BorderSide(color: AppColor.baseColor), // Color when focused
+                                ),
+
                               ),
+
+
                               keyboardType: TextInputType.number,
                               onChanged: (value) {
                                 setState(() {
@@ -99,21 +133,7 @@ class _CgpaCalculatorState extends State<CgpaCalculator> {
               ),
             ),
             // Dropdown to select number of semesters
-            DropdownButton<int>(
-              value: selectedSemesters,
-              items: List.generate(
-                maxSemesters,
-                    (index) => DropdownMenuItem(
-                  child: Text('Calculate for ${index + 1} semesters'),
-                  value: index + 1,
-                ),
-              ),
-              onChanged: (value) {
-                setState(() {
-                  selectedSemesters = value!;
-                });
-              },
-            ),
+
             SizedBox(height: 16),
             // Calculate Button
             ElevatedButton(
