@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:nubcc/const/app_colors.dart';
 import 'package:nubcc/const/font_constant.dart';
 
@@ -8,8 +9,8 @@ class CgpaCalculator extends StatefulWidget {
 }
 
 class _CgpaCalculatorState extends State<CgpaCalculator> {
-  final int maxSemesters = 8;
-  List<Semester> semesters = List.generate(8, (_) => Semester());
+  final int maxSemesters = 12;
+  List<Semester> semesters = List.generate(12, (_) => Semester());
   final TextEditingController resultController = TextEditingController();
   int selectedSemesters = 4;
 
@@ -66,6 +67,7 @@ class _CgpaCalculatorState extends State<CgpaCalculator> {
             ),
             Expanded(
               child: ListView.builder(
+                padding: EdgeInsets.zero,
                 itemCount: selectedSemesters,
                 itemBuilder: (context, index) {
                   return Column(
@@ -90,16 +92,22 @@ class _CgpaCalculatorState extends State<CgpaCalculator> {
                                 ),
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: const BorderRadius.all(Radius.circular(8)),
-                                  borderSide: BorderSide(color: Colors.grey.shade400), // Normal border color
+                                  borderSide: BorderSide(color:semesters[index].credits !=null ? AppColor.baseColor : Colors.grey.shade400), // Normal border color
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: const BorderRadius.all(Radius.circular(8)),
-                                  borderSide: BorderSide(color: AppColor.baseColor), // Color when focused
+                                  borderSide: BorderSide(
+                                      color: AppColor.baseColor), // Green if has value
                                 ),
+                                errorBorder: const OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(Radius.circular(8)),
+                                  borderSide: BorderSide(color: Colors.red), // Color when focused
+                                ), 
 
                               ),
+                              maxLength: 2,
 
-
+                              textAlign: TextAlign.justify,
                               keyboardType: TextInputType.number,
                               onChanged: (value) {
                                 setState(() {
@@ -113,10 +121,36 @@ class _CgpaCalculatorState extends State<CgpaCalculator> {
                           Expanded(
                             child: TextField(
                               decoration: InputDecoration(
-                                labelText: 'CGPA',
-                                border: OutlineInputBorder(),
+                                contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 0),
+                                hintText: "CGPA",
+                                hintStyle: TextStyle(
+                                  fontFamily: 'HindSiliguri',
+                                  color: Colors.grey.shade400,
+                                  fontSize: 16,
+                                ),
+                                border: const OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(Radius.circular(8)),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: const BorderRadius.all(Radius.circular(8)),
+                                  borderSide: BorderSide(color:semesters[index].cgpa !=null ? AppColor.baseColor : Colors.grey.shade400), // Normal border color
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: const BorderRadius.all(Radius.circular(8)),
+                                  borderSide: BorderSide(
+                                      color: AppColor.baseColor), // Green if has value
+                                ),
+                                errorBorder: const OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(Radius.circular(8)),
+                                  borderSide: BorderSide(color: Colors.red), // Color when focused
+                                ), 
+
                               ),
+                              
                               keyboardType: TextInputType.number,
+                              inputFormatters: [
+                                FilteringTextInputFormatter.allow(RegExp(r'^([0-3](\.\d{0,2})?|4(\.0{0,2})?)$')),
+                              ],
                               onChanged: (value) {
                                 setState(() {
                                   semesters[index].cgpa = double.tryParse(value);
@@ -126,7 +160,7 @@ class _CgpaCalculatorState extends State<CgpaCalculator> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 16),
+                     
                     ],
                   );
                 },

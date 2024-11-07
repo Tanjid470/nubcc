@@ -8,7 +8,7 @@ import 'package:nubcc/google_sheet_init.dart';
 import 'package:nubcc/main.dart';
 import 'package:nubcc/module/UserInfo/model/user_info_model.dart';
 import 'package:nubcc/module/buttom_navigator/buttom_navigator_view.dart';
-import 'package:nubcc/module/home/view/home_screen.dart';
+
 
 
 
