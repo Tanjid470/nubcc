@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "881913105125",
+    "project_id": "nubcc-fcm-cee56",
+    "storage_bucket": "nubcc-fcm-cee56.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:881913105125:android:78c5f04f13d8186335e20c",
+        "android_client_info": {
+          "package_name": "com.example.nubcc"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAKkjOdoVkfwPnUgm_hPB-Z7SSy-opvrhE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
