@@ -6,7 +6,7 @@ abstract class Routes {
   static const teacherView = _Paths.teacherView;
   static const clubCommitteeView = _Paths.clubCommitteeView;
   static const bottomNavigationWidget = _Paths.bottomNavigationWidget;
-
+  static const loginView = _Paths.loginView;
 }
 
 abstract class _Paths {
@@ -16,4 +16,5 @@ abstract class _Paths {
   static const teacherView = '/teacher_view';
   static const clubCommitteeView = '/club_committee_view';
   static const bottomNavigationWidget = '/bottom_navigation_widget';
+  static const loginView = '/login_view';
 }
