@@ -9,10 +9,6 @@ import 'package:nubcc/main.dart';
 import 'package:nubcc/module/UserInfo/model/user_info_model.dart';
 import 'package:nubcc/module/buttom_navigator/buttom_navigator_view.dart';
 
-
-
-
-
 class UserInfoDataLink{
 
 
