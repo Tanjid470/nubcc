@@ -24,19 +24,17 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-      body: Column(
+    return Column(
         children: [
           const CustomAppBar(),
           verticalGap(context, 1),
           body()
         ],
-      ),
     );
   }
   Widget body(){
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15),
+      padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Column(
         children: [
           Column(
@@ -51,16 +49,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   itemBuilder: (BuildContext context, int index, int realIndex) {
                     return Container(
                       decoration: BoxDecoration(
-                          color : AppColor.baseColor,
+                          color : Colors.transparent,
                           borderRadius: const BorderRadius.all(Radius.circular(10)),
-                          boxShadow: [
-                            BoxShadow(
-                                color: AppColor.baseColor.withOpacity(.5),
-                                blurRadius:1,
-                                blurStyle: BlurStyle.outer,
-                                spreadRadius: 2
-                            )
-                          ]
+
+                        border: Border.all(color: AppColor.baseColor),
+                        image: DecorationImage(
+                            image:AssetImage(homeController.splashList[index]),
+                          fit: BoxFit.cover
+                        )
                       ),
                     );
                   },
@@ -76,26 +72,27 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(homeController.splashList.length, (index) {
-                  return InkWell(
-                    onTap: () => homeController.changePage(index),
-                    child: Container(
-                      width: homeController.selectedPage.value == index ? 20.0 : 12.0,
-                      height: 12.0,
-                      margin: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 4.0),
-                      decoration: BoxDecoration(
-                        // shape: BoxShape.circle,
-                        borderRadius: const BorderRadius.all(Radius.circular(7)),
-                        color: homeController.selectedPage.value == index
-                            ? AppColor.baseColor
-                            : Colors.grey.shade300,
+              Obx(() {
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: List.generate(homeController.splashList.length, (index) {
+                    return InkWell(
+                      onTap: () => homeController.changePage(index),
+                      child: Container(
+                        width: homeController.selectedPage.value == index ? 15.0 : 10.0,
+                        height: 10.0,
+                        margin: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 4.0),
+                        decoration: BoxDecoration(
+                          borderRadius: const BorderRadius.all(Radius.circular(7)),
+                          color: homeController.selectedPage.value == index
+                              ? AppColor.baseColor
+                              : Colors.grey.shade300,
+                        ),
                       ),
-                    ),
-                  );
-                }),
-              ),
+                    );
+                  }),
+                );
+              }),
             ],
           ),
           Column(

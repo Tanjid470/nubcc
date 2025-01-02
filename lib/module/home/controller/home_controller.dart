@@ -1,5 +1,6 @@
 
 import 'package:get/get.dart';
+import 'package:nubcc/const/app_images.dart';
 import 'package:nubcc/module/teacher/data/teacher_data_link.dart';
 
 class HomeController extends GetxController{
@@ -11,7 +12,13 @@ class HomeController extends GetxController{
   }
 
   List<String> splashList = [
-    "first",
-    "Second"
+   AppImages.splashOne,
+   AppImages.splashTwo,
+   AppImages.splashThree,
+   AppImages.splashFour,
+   AppImages.splashFive,
+   AppImages.splashSix,
+   AppImages.splashSeven,
+   AppImages.splashEight,
   ];
 }
