@@ -37,10 +37,10 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
     return Scaffold(
       body: PageView(
         controller: pageController,
-        children: [
-         const HomeScreen(),
-          CgpaCalculator(),
-         const ProfileView(),
+        children: const [
+         HomeScreen(),
+         CgpaCalculator(),
+         ProfileView(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
