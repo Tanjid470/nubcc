@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
@@ -40,7 +39,7 @@ class _LoginViewState extends State<LoginView> {
             Container(
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                  color:  Colors.white,
+                  color: Colors.white,
                   borderRadius: BorderRadius.circular(10),
                   border: Border.all(
                     color: loginController.emailController.text.isEmpty
@@ -58,7 +57,7 @@ class _LoginViewState extends State<LoginView> {
                 keyboardType: TextInputType.name,
                 decoration: InputDecoration(
                   contentPadding:
-                  const EdgeInsets.symmetric(horizontal: 8, vertical: 0),
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 0),
                   border: const OutlineInputBorder(borderSide: BorderSide.none),
                   hintText: "Enter your email",
                   prefixIcon: Icon(
@@ -135,21 +134,45 @@ class _LoginViewState extends State<LoginView> {
 
   Widget actionButton() {
     return Obx(
-          () {
+      () {
         return loginController.saveButtonEnableFlag.value
             ? InkWell(
-            onTap: () {
-              SmartDialog.showLoading();
-              loginController.login(loginController.emailController.text);
-            },
-            child: Container(
+                onTap: () {
+                  SmartDialog.showLoading();
+                  loginController.login(loginController.emailController.text);
+                },
+                child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15.0),
+                        gradient: LinearGradient(colors: [
+                          AppColor.baseColor,
+                          AppColor.baseColorShade700
+                        ]),
+                        boxShadow: const [
+                          BoxShadow(
+                              color: Colors.black, offset: Offset(1.5, 1.5))
+                        ]),
+                    height: 50,
+                    width: double.maxFinite,
+                    child: Center(
+                      child: Text(
+                        "Log In",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'HindSiliguri',
+                            letterSpacing: 2,
+                            fontWeight: FontWeight.bold,
+                            fontSize: TextSize.font20(context)),
+                        textAlign: TextAlign.center,
+                      ),
+                    )))
+            : Container(
+                padding: const EdgeInsets.all(8.0),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15.0),
-                    gradient:  LinearGradient(
-                        colors: [AppColor.baseColor, AppColor.baseColorShade700]),
+                    color: Colors.grey.shade500,
                     boxShadow: const [
-                      BoxShadow(
-                          color: Colors.black, offset: Offset(1.5, 1.5))
+                      BoxShadow(color: Colors.black, offset: Offset(1.5, 1.5))
                     ]),
                 height: 50,
                 width: double.maxFinite,
@@ -164,29 +187,7 @@ class _LoginViewState extends State<LoginView> {
                         fontSize: TextSize.font20(context)),
                     textAlign: TextAlign.center,
                   ),
-                )))
-            : Container(
-            padding: const EdgeInsets.all(8.0),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15.0),
-                color: Colors.grey.shade500,
-                boxShadow: const [
-                  BoxShadow(color: Colors.black, offset: Offset(1.5, 1.5))
-                ]),
-            height: 50,
-            width: double.maxFinite,
-            child: Center(
-              child: Text(
-                "Log In",
-                style: TextStyle(
-                    color: Colors.white,
-                    fontFamily: 'HindSiliguri',
-                    letterSpacing: 2,
-                    fontWeight: FontWeight.bold,
-                    fontSize: TextSize.font20(context)),
-                textAlign: TextAlign.center,
-              ),
-            ));
+                ));
       },
     );
   }
